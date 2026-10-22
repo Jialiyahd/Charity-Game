@@ -1,0 +1,8 @@
+{
+  "name": "Charity Game: Water Quest",
+  "description": "An interactive tap game for charity: water where players collect yellow jerry cans against the clock to bring clean water to communities in need.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Water Quest | charity: water</title>
+
+  <meta name="description"
+    content="Play Water Quest! Sort waste, clean the water, and learn about charity: water.">
+
+  <!-- Website Icon -->
+  <link rel="icon" type="image/png"
+    href="img/water-can-transparent.png">
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+  <!-- =========================
+       HEADER / BRANDING
+  ========================== -->
+
+  <header class="app-header">
+
+    <div class="brand-row">
+
+      <img
+        src="img/cw_logo_horizontal.png"
+        alt="charity: water logo"
+        class="brand-logo"
+        onerror="this.onerror=null; this.src='img/cw_logo.png';"
+      >
+
+      <!-- Sound Button -->
+      <div class="audio-control-wrap">
+
+        <button
+          id="sound-toggle"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle Sound">
+
+          <span id="sound-icon">🔊</span>
+          <span class="btn-text">Sound ON</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN GAME CONTAINER
+  ========================== -->
+
+  <main class="container">
+
+    <!-- GAME TITLE -->
+
+    <section class="title-section">
+
+      <h1>Water Quest 💧</h1>
+
+      <p class="tagline">
+        Clean Water Changes Everything.
+      </p>
+
+      <p class="game-instructions">
+        Help clean polluted water by sorting waste
+        into the correct bins!
+
+        <strong>Earn 100 points</strong>
+        before the timer runs out to complete
+        your Water Quest.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         GAME STATISTICS
+    ========================== -->
+
+    <section
+      class="stats"
+      aria-label="Game Statistics">
+
+      <!-- Current Score -->
+
+      <div class="stat-card stat-cans">
+
+        <div class="stat-icon">⭐</div>
+
+        <div class="stat-data">
+
+          <span class="stat-label">
+            Your Score
+          </span>
+
+          <span
+            id="current-cans"
+            class="stat-value">
+            0
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Countdown Timer -->
+
+      <div class="stat-card stat-timer">
+
+        <div class="stat-icon">⏱️</div>
+
+        <div class="stat-data">
+
+          <span class="stat-label">
+            Time Remaining
+          </span>
+
+          <span class="stat-value">
+
+            <span id="timer">60</span>
+
+            <span class="stat-unit">s</span>
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- High Score -->
+
+      <div class="stat-card stat-highscore">
+
+        <div class="stat-icon">🏆</div>
+
+        <div class="stat-data">
+
+          <span class="stat-label">
+            Best Score
+          </span>
+
+          <span
+            id="high-score"
+            class="stat-value">
+            0
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TIMER PROGRESS BAR
+    ========================== -->
+
+    <div
+      class="timer-bar-track"
+      aria-hidden="true">
+
+      <div
+        id="timer-bar"
+        class="timer-bar-fill">
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         GAME INSTRUCTIONS
+    ========================== -->
+
+    <section class="sorting-instructions">
+
+      <h2>How to Play</h2>
+
+      <p>
+        1. Click an item in the water.
+      </p>
+
+      <p>
+        2. Choose the correct trash
+        or recycling bin.
+      </p>
+
+      <p>
+        3. Earn points for correct answers!
+      </p>
+
+      <p>
+        Correct: +10 points
+      </p>
+
+      <p>
+        Incorrect: -5 points
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         INTERACTIVE GAME AREA
+    ========================== -->
+
+    <section class="game-area">
+
+      <h2>Clean the Water!</h2>
+
+      <p>
+        Select an item below to begin sorting.
+      </p>
+
+
+      <!-- Water Game Grid -->
+
+      <div class="grid-wrapper">
+
+        <div
+          class="game-grid"
+          id="grid"
+          aria-label="Interactive waste sorting area">
+        </div>
+
+      </div>
+
+
+      <!-- Player Feedback -->
+
+      <p
+        id="game-feedback"
+        class="game-feedback"
+        role="status"
+        aria-live="polite">
+
+        Click Start Game to begin!
+
+      </p>
+
+
+      <!-- =========================
+           TRASH AND RECYCLE BINS
+      ========================== -->
+
+      <div class="sorting-bins">
+
+        <!-- Trash Bin -->
+
+        <button
+          id="trash-bin"
+          class="bin-btn trash-bin"
+          type="button"
+          disabled>
+
+          <span class="bin-icon">🗑️</span>
+
+          <span>Trash</span>
+
+        </button>
+
+
+        <!-- Recycling Bin -->
+
+        <button
+          id="recycle-bin"
+          class="bin-btn recycle-bin"
+          type="button"
+          disabled>
+
+          <span class="bin-icon">♻️</span>
+
+          <span>Recycle</span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         GAME CONTROL BUTTONS
+    ========================== -->
+
+    <div class="controls-area">
+
+      <!-- Start Game -->
+
+      <button
+        id="start-game"
+        class="action-btn start-btn"
+        type="button">
+
+        Start Game
+
+      </button>
+
+
+      <!-- Reset Game -->
+
+      <button
+        id="reset-game"
+        class="action-btn primary-btn"
+        type="button">
+
+        Reset Game
+
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         WIN / LOSS POPUP
+    ========================== -->
+
+    <div
+      id="achievements"
+      class="achievement"
+      style="display: none;"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="achievement-title">
+
+      <div class="achievement-card">
+
+        <!-- Achievement Icon -->
+
+        <div
+          id="achievement-icon"
+          class="achievement-badge">
+
+          💧
+
+        </div>
+
+
+        <!-- Result Title -->
+
+        <h2
+          id="achievement-title"
+          class="achievement-headline">
+
+          Quest Finished!
+
+        </h2>
+
+
+        <!-- Result Message -->
+
+        <p
+          id="achievement-message"
+          class="achievement-text">
+        </p>
+
+
+        <!-- Final Score -->
+
+        <div class="achievement-stats">
+
+          <div class="achieve-pill">
+
+            <span class="achieve-lbl">
+              Final Score
+            </span>
+
+            <span
+              id="final-score"
+              class="achieve-val">
+              0
+            </span>
+
+          </div>
+
+
+          <div class="achieve-pill">
+
+            <span class="achieve-lbl">
+              Goal
+            </span>
+
+            <span class="achieve-val">
+              100 Points
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Play Again Button -->
+
+        <button
+          id="modal-restart"
+          class="action-btn primary-btn"
+          type="button">
+
+          Play Again
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         CONFETTI CELEBRATION
+    ========================== -->
+
+    <div
+      id="confetti-container"
+      class="confetti-container"
+      aria-hidden="true">
+    </div>
+
+
+    <!-- =========================
+         CHARITY: WATER MISSION
+    ========================== -->
+
+    <section class="mission-callout">
+
+      <div class="callout-content">
+
+        <div class="callout-icon-box">
+
+          <img
+            src="img/water-can.png"
+            alt="Yellow Jerry Can"
+            class="jerrycan-thumb">
+
+        </div>
+
+
+        <div class="callout-text">
+
+          <h3>
+            Why Clean Water Matters
+          </h3>
+
+          <p>
+            Access to clean water helps communities
+            stay healthy and creates opportunities
+            for education and growth.
+
+            Through this game, players learn
+            about protecting water resources
+            while supporting the mission
+            of charity: water.
+          </p>
+
+          <p>
+            <a
+              href="https://www.charitywater.org/"
+              target="_blank"
+              rel="noopener noreferrer">
+
+              Learn More About charity: water
+
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="app-footer">
+
+    <p>
+      Water Quest | Inspired by charity: water
+    </p>
+
+    <p>
+      Clean Water Changes Everything.
+    </p>
+
+  </footer>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT FILE
+========================== -->
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
